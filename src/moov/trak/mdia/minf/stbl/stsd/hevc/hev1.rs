@@ -5,6 +5,7 @@ use crate::*;
 pub struct Hev1 {
     pub visual: Visual,
     pub hvcc: Hvcc,
+    pub btrt: Option<Btrt>,
     pub pasp: Option<Pasp>,
 }
 
@@ -15,10 +16,12 @@ impl Atom for Hev1 {
         let visual = Visual::decode(buf)?;
 
         let mut hvcc = None;
+        let mut btrt = None;
         let mut pasp = None;
         while let Some(atom) = Any::decode_maybe(buf)? {
             match atom {
                 Any::Hvcc(atom) => hvcc = atom.into(),
+                Any::Btrt(atom) => btrt = atom.into(),
                 Any::Pasp(atom) => pasp = atom.into(),
                 _ => tracing::warn!("unknown atom: {:?}", atom),
             }
@@ -27,6 +30,7 @@ impl Atom for Hev1 {
         Ok(Hev1 {
             visual,
             hvcc: hvcc.ok_or(Error::MissingBox(Hvcc::KIND))?,
+            btrt,
             pasp,
         })
     }
@@ -34,6 +38,9 @@ impl Atom for Hev1 {
     fn encode_body<B: BufMut>(&self, buf: &mut B) -> Result<()> {
         self.visual.encode(buf)?;
         self.hvcc.encode(buf)?;
+        if self.btrt.is_some() {
+            self.btrt.encode(buf)?;
+        }
         if self.pasp.is_some() {
             self.pasp.encode(buf)?;
         }
@@ -63,6 +70,7 @@ mod tests {
                 configuration_version: 1,
                 ..Default::default()
             },
+            btrt: None,
             pasp: None,
         };
         let mut buf = Vec::new();

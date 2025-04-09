@@ -192,6 +192,7 @@ fn esds() {
                                         picture_parameter_sets:  vec![b"h\xce\x0f\xc8".into()],
                                         ext: None,
                                     },
+                                    btrt: None,
                                     pasp: Some(Pasp {
                                         h_spacing: 1,
                                         v_spacing: 1
@@ -269,6 +270,7 @@ fn esds() {
                                             sl_config: esds::SLConfig{},
                                         },
                                     }),
+                                    btrt: Some(Btrt { buffer_size_db: 0, max_bitrate: 128000, avg_bitrate: 128000 }),
                                 }
                                 .into()],
                             },

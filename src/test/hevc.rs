@@ -555,6 +555,11 @@ fn hevc() {
                                             }
                                         ]
                                     },
+                                    btrt: Some(Btrt {
+                                        buffer_size_db: 0,
+                                        max_bitrate: 25175730,
+                                        avg_bitrate: 25175730
+                                    }),
                                     pasp: Some(Pasp {
                                         h_spacing: 1,
                                         v_spacing: 1,

@@ -243,6 +243,11 @@ fn avcc_ext() {
                                             sequence_parameter_sets_ext: vec![],
                                         }),
                                     },
+                                    btrt: Some(Btrt {
+                                        buffer_size_db: 0,
+                                        max_bitrate: 2453499,
+                                        avg_bitrate: 2453499,
+                                    }),
                                     pasp: Some(Pasp {
                                         h_spacing: 1,
                                         v_spacing: 1,
@@ -332,6 +337,11 @@ fn avcc_ext() {
                                             },
                                             sl_config: esds::SLConfig::default(),
                                         },
+                                    }),
+                                    btrt: Some(Btrt {
+                                        buffer_size_db: 0,
+                                        max_bitrate: 160000,
+                                        avg_bitrate: 160000,
                                     }),
                                 }
                                 .into()],
